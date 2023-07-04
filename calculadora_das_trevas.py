@@ -16,17 +16,19 @@ def calculo():
    
     registrar_operacao(expressao_matematica, resultado)
     print(str(resultado))
-    return str(resultado)
+    return str(resultado).replace('.',',')
 
-@app.route('/ola_mundo', methods=['GET'])
-def ola_mundo():
-    print('olá mundo')
-    return'ok'
+# @app.route('/ola_mundo', methods=['GET'])
+# def ola_mundo():
+#     print('olá mundo')
+#     return'ok'
     
 @app.route('/consultar_operacoes', methods=['GET'])
 def cons_op():
-    consultar_operacoes()
-    return'ok'    
+       
+    data = consultar_operacoes()
+    dict_list = [{"operacao": item[1], "resultado": item[2], "data_hora": item[3]} for item in data]
+    return dict_list
     
 if __name__ == '__main__':
     app.run(port=5003, host='192.168.100.40', threaded=True)

@@ -4,15 +4,15 @@ import requests
 
 
 
-conn = sqlite3.connect('calculadora_das_trevas.db')
-cursor = conn.cursor()
+# conn = sqlite3.connect('calculadora_das_trevas.db')
+# cursor = conn.cursor()
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS Operacoes (id INTEGER PRIMARY KEY AUTOINCREMENT,
-    operacao TEXT,
-    resultado TEXT,
-    data_hora TEXT)''')
+# cursor.execute('''CREATE TABLE IF NOT EXISTS Operacoes (id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     operacao TEXT,
+#     resultado TEXT,
+#     data_hora TEXT)''')
 
-conn.commit()
+# conn.commit()
 
 
 def registrar_operacao(operacao, resultado):
@@ -33,15 +33,13 @@ def consultar_operacoes():
     conn = sqlite3.connect('calculadora_das_trevas.db')
     cursor = conn.cursor()
     
-    cursor.execute("SELECT * FROM Operacoes")
+    cursor.execute("select * from operacoes order by data_hora desc limit 10")
     rows = cursor.fetchall()
    
     cursor.close()
     conn.close()
     
-    for row in rows:
-        print(row)
-       
+    return rows
 
 
 def enviar_dados_calculo(expressao_matematica, resultado):
@@ -51,7 +49,7 @@ def enviar_dados_calculo(expressao_matematica, resultado):
     print(response.text)
     
         
-consultar_operacoes()
+# consultar_operacoes()
 
-conn.close()
+# conn.close()
    
